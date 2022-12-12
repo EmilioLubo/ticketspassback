@@ -61,6 +61,19 @@ function activityNotFound(req, res) {
     });
 }
 
+function nameAlreadyExistsResponse(req, res) {
+    return res.status(400).json({
+        success: false,
+        message: 'name already exists'
+    })
+}
+function unauthorizedUserResponse(req, res) {
+    return res.status(401).json({
+        success: false,
+        message: "Unauthorized user",
+    });
+}
+
 module.exports = {
     userSignedUpResponse,
     userExistsResponse,
@@ -70,5 +83,7 @@ module.exports = {
     invalidCredentialsResponse,
     verifyResponse,
     mustBeTheOwner,
-    activityNotFound
+    activityNotFound,
+    nameAlreadyExistsResponse,
+    unauthorizedUserResponse
 }
