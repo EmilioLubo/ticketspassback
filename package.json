@@ -5,9 +5,7 @@
   "scripts": {
     "start": "node ./bin/www",
     "dev": "nodemon ./bin/www",
-    "test": "mocha",
-    "test-city": "mocha ./test/city.test.js",
-    "test-hotel": "mocha ./test/hotel.test.js"
+    "test": "mocha"
   },
   "dependencies": {
     "bcrypt": "^5.1.0",
