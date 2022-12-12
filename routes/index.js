@@ -1,5 +1,7 @@
 let router = require('express').Router();
 
-// Import all routes
+let venueRouter = require('./venue')
+
+router.use('/venue',venueRouter)
 
 module.exports = router;
