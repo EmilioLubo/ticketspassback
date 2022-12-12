@@ -32,7 +32,7 @@ const controller = {
             venues? res.status(200).json({
                 response: venues,
                     success:true,
-                    message: 'the venues was found'
+                    message: 'the venues were found'
             }) : res.status(404).json({
                 success:false,
                 message:'venues not found'
@@ -51,7 +51,7 @@ const controller = {
             venue? res.status(200).json({
                 response: venue,
                     success:true,
-                    message: 'the venue was update'
+                    message: 'the venue was updated'
             }) : res.status(404).json({
                 success:false,
                 message:'venue not found'
@@ -70,7 +70,7 @@ const controller = {
             venue? res.status(200).json({
                 response: venue._id,
                     success:true,
-                    message: 'the venue was delete'
+                    message: 'the venue was deleted'
             }) : res.status(404).json({
                 success:false,
                 message:'venue not found'
