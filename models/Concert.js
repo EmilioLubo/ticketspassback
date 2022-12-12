@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const categorySchema = new mongoose.Schema({
   name: { type: String, required: true },
   price: { type: Number, required: true },
+  currency: {type: String, required: true},
   area: { type: String },
 });
 
@@ -14,6 +15,7 @@ const schema = new mongoose.Schema({
   venue: { type: mongoose.Types.ObjectId, ref: "venues", required: true },
   type: { type: String, required: true },
   category: [categorySchema],
+  userId: {type: String, required: true}
 });
 
 const Concert  = mongoose.model("concerts", schema);
