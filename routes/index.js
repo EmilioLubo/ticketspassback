@@ -2,7 +2,9 @@ let router = require('express').Router();
 let ticket = require('./ticket');
 let user = require('./user');
 
-// Import all routes
+let venueRouter = require('./venue')
+
+router.use('/venue',venueRouter)
 
 router.use('/users', user)
 router.use('/tickets', ticket)
