@@ -12,7 +12,7 @@ const schema = joi.object({
     "string.base": "The field 'photo' must be a string",
     "string.uri": "The field 'photo' must be an url",
   }),
-  artists: joy.array().items(joi.any()).required().messages({
+  artists: joi.array().items(joi.any()).required().messages({
     "any.required": "The field 'artists' is required, please enter it",
     "string.empty": "The field 'artists' mustn't be empty, please fill it",
     "array.base": "The field 'artists' must be an Array",

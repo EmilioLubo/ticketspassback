@@ -10,3 +10,5 @@ router.route('/')
 router.route('/:id')
     .get(readOne)
     .patch(passport.authenticate("jwt", { session: false }), update)
+
+module.exports = router;

@@ -85,6 +85,24 @@ const controller = {
         message: error.message,
       });
     }
+  },
+  show: async (req, res) => {
+    let { id } = req.params;
+    try {
+      let concert = await Concert.findById(id).populate('artists').populate('venue');
+      if(concert) {
+        res.status.json({
+          response: concert,
+          success: true,
+          message: "City found"
+        })
+      }
+    }catch(error) {
+      res.status(400).json({
+        success: false,
+        message: error.message,
+      });
+    }
   }
 };
 

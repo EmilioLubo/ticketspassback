@@ -9,7 +9,7 @@ const jwt = require('jsonwebtoken')
 const controller = {
 
     register: async (req, res, next) => {
-        let { name, lastName, photo, age, email, password } = req.body;
+        let { name, lastName, photo, birthDate, email, password } = req.body;
         let role = 'user';
         let verified = false
         let logged = false
