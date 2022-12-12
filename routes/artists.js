@@ -1,0 +1,5 @@
+const router = require('express').Router()
+const {create, read, update, destroy} = require('../controllers/artists')
+const schema = require('../schemas/artist')
+const validator = require('../middlewares/validator')
+const passport = require('../config/passport')
