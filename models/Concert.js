@@ -15,7 +15,6 @@ const schema = new mongoose.Schema({
   venue: { type: mongoose.Types.ObjectId, ref: "venues", required: true },
   type: { type: String, required: true },
   category: [categorySchema],
-  userId: {type: String, required: true}
 });
 
 const Concert  = mongoose.model("concerts", schema);
