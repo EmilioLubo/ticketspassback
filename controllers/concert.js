@@ -94,7 +94,7 @@ const controller = {
         res.status.json({
           response: concert,
           success: true,
-          message: "City found"
+          message: "Concert found"
         })
       }
     }catch(error) {
