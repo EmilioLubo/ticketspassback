@@ -4,7 +4,6 @@ const schema = new mongoose.Schema({
   name: { type: String, required: true },
   address: { type: String, required: true },
   capacity: { type: Number, required: true },
-  email: { type: String, required: true },
   type: { type: String, required: true },
   location: { type: String },
   country: { type: String, required: true },

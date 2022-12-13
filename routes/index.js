@@ -6,7 +6,7 @@ let venueRouter = require('./venue')
 
 // Import all routes
 router.use('/auth', user)
-router.use('/venue',venueRouter)
+router.use('/venues',venueRouter)
 router.use('/tickets', ticket)
 router.use('/concerts', concerts);
 
