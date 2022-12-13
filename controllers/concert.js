@@ -19,8 +19,17 @@ const controller = {
     }
   },
   read: async (req, res) => {
+    let query = {};
+    if(req.query.artistId) {
+      query.artists = req.query.artistId;
+    }
+
+    if(req.query.name) {
+      query.name = { $regex: req.query.name, $options: "i" };
+    }
+
     try {
-      allConcerts = await Concert.find({}, "-userId");
+      allConcerts = await Concert.find(query, "-userId").populate("venue", "-_id name");
       if(allConcerts.length) {
         res.status(200).json({
           response: allConcerts,
