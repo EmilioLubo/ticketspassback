@@ -10,6 +10,6 @@ router.use('/auth', user)
 router.use('/venues',venueRouter)
 router.use('/tickets', ticket)
 router.use('/concerts', concerts);
-router.use('/artist', artist)
+router.use('/artists', artist)
 
 module.exports = router;

@@ -6,7 +6,7 @@ const { create, read, update, destroy, show } = require("../controllers/concert"
 
 router.post("/", passport.authenticate("jwt", { session: false }), validator(schema), create);
 router.get("/", read);
-router.put("/:id", passport.authenticate("jwt", { session: false }), update);
+router.patch("/:id", passport.authenticate("jwt", { session: false }), update);
 router.delete("/:id", passport.authenticate("jwt", {session: false}), destroy);
 router.get("/:id", show);
 

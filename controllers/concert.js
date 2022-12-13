@@ -91,7 +91,7 @@ const controller = {
     try {
       let concert = await Concert.findById(id).populate('artists').populate('venue');
       if(concert) {
-        res.status.json({
+        res.status(200).json({
           response: concert,
           success: true,
           message: "Concert found"
