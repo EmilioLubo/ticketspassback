@@ -24,6 +24,10 @@ const controller = {
       query.artists = req.query.artistId;
     }
 
+    if(req.query.concertId) {
+      query.concertId = req.query.concertId;
+    }
+
     if(req.query.name) {
       query.name = { $regex: req.query.name, $options: "i" };
     }
