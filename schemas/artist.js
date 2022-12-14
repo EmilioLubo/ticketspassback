@@ -23,10 +23,10 @@ const schema = joi.object({
             "string.empty": "you can't leave this field empty",
             "string.base": "only letters and numbers are valid"
         }),
-    genre:joi.
-        string()
+    genre:joi
+        .string()
         .required()
-        .valid('Blues', 'Country', 'Electronic', 'Hip hop', 'Jazz', 'Latin', 'Pop', 'R&B and Soul', 'Rap', 'Reggae', 'Rock', 'Trap')
+        .valid('Ambient', 'Blues', 'Country', 'Electronic', 'Hip hop', 'Jazz', 'Latin', 'Metal', 'Pop', 'Punk', 'R&B and Soul', 'Rap', 'Reggae', 'Reggaeton', 'Rock', 'Ska', 'Trap')
         .insensitive()
         .messages({
             "string.required": "the field is required, please enter a genre",
