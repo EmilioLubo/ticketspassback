@@ -50,6 +50,7 @@ const controller = {
                     {
                         id: userDb._id,
                         name: userDb.name,
+                        lastName:userDb.lastName,
                         photo: userDb.photo,
                         logged: userDb.logged,
                         role: userDb.role,
