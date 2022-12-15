@@ -21,6 +21,9 @@ const controller = {
         if(req.query.name){
             query.name = {$regex : req.query.name, $options: 'i'}
         }
+        if(req.query.genre){
+            query.genre = {$in: req.query.genre}
+        }
         try {
             if(req.params.id){
                 let artist = await Artist.findById(req.params.id)
@@ -36,7 +39,8 @@ const controller = {
                 });
             } else {
                 let artists = await Artist.find(query);
-                artists.length > 0 ?
+                console.log(artists)
+                artists ?
                 res.status(200).json({
                     data: artists,
                     success: true,

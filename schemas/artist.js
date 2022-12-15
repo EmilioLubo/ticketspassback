@@ -24,51 +24,58 @@ const schema = joi.object({
             "string.base": "only letters and numbers are valid"
         }),
     genre:joi
-        .string()
+        .array()
+        .min(1)
         .required()
-        .valid('Ambient', 'Blues', 'Country', 'Electronic', 'Hip hop', 'Jazz', 'Latin', 'Metal', 'Pop', 'Punk', 'R&B and Soul', 'Rap', 'Reggae', 'Reggaeton', 'Rock', 'Ska', 'Trap')
-        .insensitive()
+        .items(
+            joi
+            .string()
+            .required()
+            .valid('Ambient', 'Blues', 'Country', 'Electronic', 'Funk','Hip-hop', 'Jazz', 'Latin', 'Metal', 'Pop', 'Punk', 'R&B and Soul', 'Rap', 'Reggae', 'Reggaeton', 'Rock', 'Ska', 'Trap')
+            .insensitive()
+            .messages({
+                "string.required": "the field is required, please enter a genre",
+                "string.valid": "invalid genre name",
+                "string.empty": "you can't leave this field empty",
+                "string.base": "only letters and numbers are valid"
+            }),
+        )
         .messages({
-            "string.required": "the field is required, please enter a genre",
-            "string.valid": "invalid genre name",
-            "string.empty": "you can't leave this field empty",
-            "string.base": "only letters and numbers are valid"
+            "array.required": "the field is required, please choose at least one genre",
+            "array.min": "you must choose at least one valid genre"
         }),
     description:joi
         .string()
         .required()
         .min(10)
-        .max(300)
+        .max(600)
         .messages({
             "string.required": "the field is required, please enter a description",
             "string.empty": "you can't leave this field empty",
             "string.min": "description must have at least 10 character",
-            "string.max": "description must have a maximum of 300 characters",
+            "string.max": "description must have a maximum of 600 characters",
             "string.base": "only letters and numbers are valid"
         }),
     youtubeVideo:joi
         .string()
         .uri()
+        .allow('')
         .messages({
             "string.uri": "youtube video field must be a valid url",
-            "string.empty": "you can't leave this field empty",
-            "string.base": "only letters and numbers are valid"
         }),
     youtubeChannel:joi
         .string()
         .uri()
+        .allow('')
         .messages({
             "string.uri": "youtube channel field must be a valid url",
-            "string.empty": "you can't leave this field empty",
-            "string.base": "only letters and numbers are valid"
         }),
     spotifyPlaylist:joi
         .string()
         .uri()
+        .allow('')
         .messages({
             "string.uri": "spotify playlist field must be a valid url",
-            "string.empty": "you can't leave this field empty",
-            "string.base": "only letters and numbers are valid"
         }),
 })
 
