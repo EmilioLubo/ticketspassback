@@ -20,16 +20,24 @@ const controller = {
   },
   read: async (req, res) => {
     let query = {};
+    let limit = 0;
     if(req.query.artistId) {
       query.artists = req.query.artistId;
+    }
+
+    if(req.query.concertId) {
+      query.concertId = req.query.concertId;
     }
 
     if(req.query.name) {
       query.name = { $regex: req.query.name, $options: "i" };
     }
+    if(req.query.limit) {
+      limit = req.query.limit
+    }
 
     try {
-      allConcerts = await Concert.find(query, "-userId").populate("venue", "-_id name");
+      allConcerts = await Concert.find(query, "-userId").sort('date').limit(limit).populate("venue", "-_id name");
       if(allConcerts.length) {
         res.status(200).json({
           response: allConcerts,
@@ -105,6 +113,11 @@ const controller = {
           success: true,
           message: "Concert found"
         })
+      } else {
+        res.status(404).json({
+          success: false,
+          message: "Couldn't find the concert to show",
+        });        
       }
     }catch(error) {
       res.status(400).json({
