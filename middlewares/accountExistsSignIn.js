@@ -13,6 +13,7 @@ async function accountExistsSignIn(req, res, next) {
             password: user.password,
             role: user.role,
             verified: user.verified,
+            birthDate:user.birthDate
         }
         return next()
     }
