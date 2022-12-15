@@ -81,8 +81,26 @@ const controller = {
                 message: err.message
             })
         }
+    },
+    show: async(req, res) => {
+        let { id } = req.params;
+        try {
+            let venue = await Venue.findById(id);
+            venue? res.status(200).json({
+                response: venue,
+                success: true,
+                message:  "the venue was found"
+            }) : res.status(404).json({
+                success: false,
+                message: "the venue wasn't found"
+            })
+        } catch(err) {
+            res.status(400).json({
+                success: false,
+                message: err.message
+            })
+        }
     }
-    
 
 }
 
