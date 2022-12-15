@@ -54,6 +54,7 @@ const controller = {
                         photo: userDb.photo,
                         logged: userDb.logged,
                         role: userDb.role,
+                        birthDate:userDb.birthDate
                     },
                     process.env.KEY_JWT,
                     { expiresIn: 60 * 60 * 24 }
