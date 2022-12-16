@@ -6,4 +6,4 @@ async function verifyRole(req, res, next) {
     unauthorizedUserResponse(req, res)
 }
 
-module.exports = accountExistsSignUp
+module.exports = verifyRole

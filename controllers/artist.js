@@ -39,8 +39,7 @@ const controller = {
                 });
             } else {
                 let artists = await Artist.find(query);
-                console.log(artists)
-                artists ?
+                artists.length > 0 ?
                 res.status(200).json({
                     data: artists,
                     success: true,
