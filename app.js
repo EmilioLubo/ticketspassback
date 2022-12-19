@@ -7,9 +7,14 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 const cors = require('cors');
-
+const mercadopago = require("mercadopago");
 var indexRouter = require('./routes/index');
 
+mercadopago.configure({
+  sandbox: true,
+	access_token: process.env.ACCESS_TOKEN || 'TEST-8860171556781549-121815-67b8e761a44a0a285b0cf70d68a80aac-1267029718',
+
+});
 
 var app = express();
 
