@@ -1,3 +1,4 @@
+const mercadopago = require("mercadopago");
 const Cart = require("../models/Cart");
 const Concert = require("../models/Concert");
 
@@ -17,6 +18,7 @@ const controller = {
         const price = concert.category.price;
         const concertName = concert.name;
         const categoryName = concert.category.name;
+        const photo = concert.photo;
         if (cart) {
           const itemIndex = cart.items.findIndex(item => item.concertId.equals(concert._id));
           if (itemIndex > -1) {
@@ -32,7 +34,7 @@ const controller = {
               message: "Concert quantity modified successfully",
             });
           } else {
-            cart.items.push({ concertId, concertName, categoryName, quantity, price });
+            cart.items.push({ concertId, concertName, categoryName, photo, quantity, price });
             cart.total = cart.items.reduce((acc, curr) => {
               return acc + curr.quantity * curr.price;
             }, 0);
@@ -46,7 +48,7 @@ const controller = {
         } else {
           const newCart = await Cart.create({
             userId,
-            items: [{ concertId, concertName, categoryName, quantity, price }],
+            items: [{ concertId, concertName, categoryName, photo, quantity, price }],
             total: quantity * price,
           });
           res.status(200).json({
@@ -65,9 +67,9 @@ const controller = {
   },
 
   remove: async (req, res) => {
-    const userId = req.user.id;
-    const { concertId } = req.query;
     try {
+      const userId = req.user.id;
+      const { concertId } = req.query;
       let cart = await Cart.findOne({ userId });
       if (!cart || cart?.items?.length === 0) {
         res.status(404).json({
@@ -109,37 +111,102 @@ const controller = {
     }
   },
   empty: async (req, res) => {
-    const { id } = req.params;
-    let cart = await Cart.findById(id);
-    if (!cart || cart?.items?.length === 0) {
-      res.status(404).json({
+    try {
+      const { id } = req.params;
+      let cart = await Cart.findById(id);
+      if (!cart || cart?.items?.length === 0) {
+        res.status(404).json({
+          success: false,
+          message: "The cart is empty",
+        });
+      } else {
+        cart.items = [];
+        cart.total = 0;
+        cart = await cart.save();
+        res.status(200).json({
+          success: true,
+          response: cart,
+          message: "The cart was emptied successfully",
+        });
+      }
+    } catch (error) {
+      res.status(400).json({
         success: false,
-        message: "The cart is empty",
-      });
-    } else {
-      cart.items = [];
-      cart.total = 0;
-      cart = await cart.save();
-      res.status(200).json({
-        success: true,
-        response: cart,
-        message: "The cart was emptied successfully",
+        message: error.message,
       });
     }
   },
   read: async (req, res) => {
-    userId = req.user.id;
-    let cart = await Cart.findOne({ userId });
-    if (!cart || cart?.items?.length === 0) {
-      res.status(404).json({
+    try {
+      userId = req.user.id;
+      let cart = await Cart.findOne({ userId });
+      if (!cart || cart?.items?.length === 0) {
+        res.status(404).json({
+          success: false,
+          message: "The cart is empty",
+        });
+      } else {
+        res.status(200).json({
+          success: true,
+          response: cart,
+          message: "The cart was retrieved successfully",
+        });
+      }
+    } catch (error) {
+      res.status(400).json({
         success: false,
-        message: "The cart is empty",
+        message: error.message,
       });
-    } else {
-      res.status(200).json({
-        success: true,
-        response: cart,
-        message: "The cart was retrieved successfully",
+    }
+  },
+  pay: async (req, res) => {
+    try {
+      userId = req.user.id;
+      let cart = await Cart.findOne({ userId }).populate("userId");
+      if (cart) {
+        let items = cart.items.map(item => {
+          return {
+            //id: item.concertId,
+            //picture_url: item.photo,
+            title: `${item.concertName} - ${item.categoryName}`,
+            description: `${item.concertName} - ${item.categoryName}`,
+            unit_price: item.price,
+            quantity: item.quantity,
+          };
+        });
+        let preference = {
+          items,
+          /* payer: {
+            id: userId._id,
+            name: userId.name,
+            surname: userId.lastName,
+            email: userId.email,
+            
+            
+          }, */
+          back_urls: {
+            success: "http://localhost:3000/succes-payment",
+            pending: "http://localhost:3000",
+            failure: "http://localhost:3000",
+          },
+          auto_return: "approved",
+        };
+        let response = await mercadopago.preferences.create(preference);
+
+        res.status(200).json({
+          success: true,
+          response: response.body,
+        });
+      } else {
+        res.status(404).json({
+          success: false,
+          message: "Couldn't found the cart",
+        });
+      }
+    } catch (error) {
+      res.status(400).json({
+        success: false,
+        message: error.message,
       });
     }
   },

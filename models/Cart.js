@@ -4,6 +4,7 @@ const itemSchema = new mongoose.Schema({
   concertId: { type: mongoose.Types.ObjectId, ref: "concerts", required: true },
   concertName: { type: String, required: true },
   categoryName: { type: String, required: true },
+  photo: {type: String, required: true},
   quantity: { type: Number, required: true },
   price: { type: Number, required: true },
 });
