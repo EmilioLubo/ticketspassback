@@ -48,7 +48,7 @@ const controller = {
   read: async(req, res) => {
     try {
       const userId = req.user.id;
-      const orders = Order.find({userId});
+      const orders = await Order.find({"userId._id": userId});
       if(orders.length) {
         res.status(200).json({
           success: true,
