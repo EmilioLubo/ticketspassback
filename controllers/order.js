@@ -21,7 +21,7 @@ const controller = {
           });
           cart.items = [];
           await cart.save();
-          res.status(200).json({
+          res.status(201).json({
             success: true,
             message: "The order was created successfully",
             response: order,
@@ -45,6 +45,29 @@ const controller = {
       });
     }
   },
+  read: async(req, res) => {
+    try {
+      const userId = req.user.id;
+      const orders = Order.find({userId});
+      if(orders.length) {
+        res.status(200).json({
+          success: true,
+          response: orders,
+          message: "Orders found"
+        })        
+      } else {
+        res.status(400).json({
+          success: false,
+          message: "Couldn't find orders",
+        });
+      }
+    }catch(error) {
+      res.status(400).json({
+        success: false,
+        message: error.message,
+      });
+    }
+  }
 };
 
 module.exports = controller;
