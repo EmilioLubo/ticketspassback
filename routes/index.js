@@ -6,6 +6,7 @@ let venueRouter = require('./venue')
 let artist = require('./artist')
 let cart = require('./cart');
 let order = require('./order');
+let message = require('./message')
 
 // Import all routes
 router.use('/auth', user)
@@ -15,5 +16,6 @@ router.use('/concerts', concert);
 router.use('/artists', artist)
 router.use('/carts', cart)
 router.use('/orders', order);
+router.use('/message', message)
 
 module.exports = router;

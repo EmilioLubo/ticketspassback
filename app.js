@@ -32,12 +32,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api', indexRouter);
 
 
-app.use('/api', (req, res) => {
-  res.render('index')
-})
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  next(createError(404));
+  res.status(404).json({ message: `Route ${req.url} with the method ${req.method} isn't implemented` });
 });
 
 // error handler
