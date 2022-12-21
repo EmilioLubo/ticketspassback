@@ -20,7 +20,10 @@ const controller = {
             await accountVerificationEmail(email, code)
             return userSignedUpResponse(req, res)
         } catch (error) {
-            console.log(error)
+            res.status(400).json({
+                success: false,
+                message: error.message
+            })
         }
     },
 
@@ -35,7 +38,10 @@ const controller = {
             return userNotFoundResponse(req, res)
 
         } catch (error) {
-            next(error)
+            res.status(400).json({
+                success: false,
+                message: error.message
+            })
         }
     },
 
@@ -70,7 +76,10 @@ const controller = {
             }
             return invalidCredentialsResponse(req, res)
         } catch (error) {
-            next(error)
+            res.status(400).json({
+                success: false,
+                message: error.message
+            })
         }
     },
 
@@ -96,7 +105,10 @@ const controller = {
             })
 
         } catch (error) {
-            next(error)
+            res.status(400).json({
+                success: false,
+                message: error.message
+            })
         }
     },
 
@@ -112,7 +124,10 @@ const controller = {
 
             return userSignedOutResponse(req, res);
         } catch (error) {
-            next(error);
+            res.status(400).json({
+                success: false,
+                message: error.message
+            })
         }
     },
 
@@ -133,7 +148,10 @@ const controller = {
                 })
             }
         } catch (error) {
-            next(error)
+            res.status(400).json({
+                success: false,
+                message: error.message
+            })
         }
     },
 
@@ -162,7 +180,10 @@ const controller = {
                 });
             }
         } catch (error) {
-            next(error)
+            res.status(400).json({
+                success: false,
+                message: error.message
+            })
         }
     },
 
