@@ -12,7 +12,7 @@ var indexRouter = require('./routes/index');
 
 mercadopago.configure({
   sandbox: true,
-	access_token: process.env.ACCESS_TOKEN || 'TEST-8860171556781549-121815-67b8e761a44a0a285b0cf70d68a80aac-1267029718',
+	access_token: process.env.ACCESS_TOKEN || 'TEST-5455371630357360-121409-a9cc471e35ec98b0067a40fab17b8dda-158410015',
 
 });
 
