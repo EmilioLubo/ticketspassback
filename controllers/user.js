@@ -33,7 +33,7 @@ const controller = {
         try {
             let user = await User.findOneAndUpdate({ code: code }, { verified: true }, { new: true })
             if (user) {
-                return res.redirect('http://localhost:3000/')
+                return res.redirect('https://ticketspass-front.vercel.app/')
             }
             return userNotFoundResponse(req, res)
 
